@@ -1,0 +1,153 @@
+.footer {
+    color: #d9d9d9;
+    background-color: rgb(45, 45, 45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 8vw;
+    padding-top: 80px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 80px;
+}
+
+.footer-content-left,
+.footer-content-right,
+.footer-content-center {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+}
+
+.footer-content-left li,
+.footer-content-right li,
+.footer-content-center li {
+    list-style: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.footer-content-right h2,
+.footer-content-center h2 {
+    color: white;
+}
+
+.footer-social-icons img {
+    margin-right: 15px;
+}
+
+.footer hr {
+    width: 100%;
+    height: 2px;
+    margin: 20px 0;
+    background-color: grey;
+    border: none;
+}
+
+.insta {
+    height: 47px;
+}
+
+.gmail {
+    height: 47px;
+}
+
+.logo1 {
+    margin-top: -30px;
+    width: 150px;
+    height: 100px;
+}
+
+@media (max-width: 750px) {
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .footer-copyright {
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .footer {
+        padding: 15px 5vw;
+        padding-top: 50px;
+        margin-top: 30px;
+    }
+
+    .footer-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .footer-content-left,
+    .footer-content-right,
+    .footer-content-center {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-content-left ul,
+    .footer-content-right ul,
+    .footer-content-center ul {
+        padding: 0;
+        margin: 0 auto;
+        list-style: none;
+    }
+
+    .footer-content-left li,
+    .footer-content-right li,
+    .footer-content-center li {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .footer-content-right h2,
+    .footer-content-center h2 {
+        font-size: 16px;
+    }
+
+    .footer-social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .footer-social-icons img {
+        margin-right: 0;
+        height: 35px;
+    }
+
+    .insta,
+    .gmail {
+        height: 40px;
+    }
+
+    .logo1 {
+        width: 120px;
+        height: 80px;
+        margin-top: -20px;
+    }
+
+    .footer hr {
+        margin: 15px 0;
+    }
+
+    .footer-copyright {
+        font-size: 12px;
+        text-align: center;
+    }
+}

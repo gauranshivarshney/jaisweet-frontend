@@ -1,0 +1,44 @@
+.food-display{
+    margin-top: 30px;
+}
+
+.food-display h2{
+    font-size: max(2vw, 24px);
+    font-weight: 600;
+}
+
+.food-display-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    margin-top: 30px;
+    gap: 10px;
+    row-gap: 30px;
+}
+
+.subcategory-box-container {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  
+  .subcategory-box {
+    padding: 10px 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #f7f7f7;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  
+  .subcategory-box:hover {
+    background-color: #ffe2e2;
+  }
+  
+  .subcategory-box.active {
+    background-color: #ff6961;
+    color: white;
+    border-color: #ff6961;
+  }
+  
