@@ -71,6 +71,7 @@
         flex-direction: column-reverse;
     }
 }
+
 @media (max-width: 390px) {
     .cart {
         margin-top: 50px;
@@ -78,7 +79,7 @@
     }
 
     .cart-items-title {
-        display: none; /* Hide title row on small screens */
+        display: none; 
     }
 
     .cart-items-item {

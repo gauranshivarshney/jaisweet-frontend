@@ -1,4 +1,4 @@
-.place-order{
+.place-order {
     display: flex;
     align-items: start;
     justify-content: space-between;
@@ -6,18 +6,18 @@
     margin-top: 50px;
 }
 
-.place-order-left{
+.place-order-left {
     width: 100%;
     max-width: max(30%, 500px);
 }
 
-.place-order-left .title{
+.place-order-left .title {
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 50px;
 }
 
-.place-order-left input{
+.place-order-left input {
     margin-bottom: 15px;
     width: 100%;
     padding: 10px;
@@ -26,18 +26,41 @@
     outline-color: rgb(224, 123, 123);
 }
 
-textarea{
+textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #c5c5c5;
     outline-color: rgb(224, 123, 123);
 }
 
-.place-order-right{
+.place-order-right {
     width: 100%;
     max-width: max(40%, 500px);
 }
 
-.place-order .cart-total button{
+.place-order .cart-total button {
     margin-top: 30px;
+}
+
+@media (max-width: 480px) {
+    .place-order {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .place-order-left,
+    .place-order-right {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .place-order-left .title {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .place-order .cart-total button {
+        width: 100%;
+    }
 }
