@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './PlaceOrder.css'
 import { StoreContext } from '../../context/StoreContext'
 import axios from 'axios'
@@ -8,6 +8,7 @@ export default function PlaceOrder() {
 
   const { getTotalAmountCart, cartItems, clearCart } = useContext(StoreContext)
   const navigate = useNavigate()
+
   const token = localStorage.getItem('token')
   const userId = localStorage.getItem('userId')
 
@@ -18,10 +19,8 @@ export default function PlaceOrder() {
   })
 
   const onChangeInput = (e) => {
-    setFormFields(() => ({
-      ...formFields,
-      [e.target.name]: e.target.value
-    }))
+    const { name, value } = e.target;
+    setFormFields((prev) => ({ ...prev, [name]: value }))
   }
 
   const subtotal = getTotalAmountCart();
@@ -36,91 +35,86 @@ export default function PlaceOrder() {
     })
     return response.data
   }
-  
+
   const checkout = async (e) => {
     e.preventDefault()
-    const order = await createOrder();
 
-    const addressInfo = {
-      name: formFields.name,
-      phone: formFields.phone,
-      address: formFields.address
+    const { name, phone, address } = formFields;
+    if (!name || !phone || !address) {
+      alert('Please fill all fields');
+      return;
     }
 
-    var options = {
-      key: 'rzp_test_089xtzoohYrmlL',
-      amount: order.amount,
-      currency: order.currency,
-      order_id: order.id,
-      name: 'Jai Sweets',
-      description: 'Order Payment',
-      handler: async function (response) {
-        alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-        const paymentID = response.razorpay_payment_id
-        const payLoad = {
-          userId,
-          name: addressInfo.name,
-          phone: addressInfo.phone,
-          address: addressInfo.address,
-          amount: totalAmount,
-          paymentId: order.id,
-          products: Object.values(cartItems).map(item => ({
-            id: item.id || item._id,
-            name: item.name,
-            quantity: item.quantity,
-            price: item.price,
-            category: item.category,
-            subcategory: item.subcategory
-          })),
-          paymentStatus: 'Completed'
-        }
-        try {
-          await axios.post('https://jai-sweet-backend.onrender.com/api/order/create', payLoad, {headers: {Authorization: `Bearer ${token}`}})
-          clearCart()
-          navigate('/')
-        }
-        catch (error) {
-          console.error(error)
-        }
-      },
-      prefill: {
-        name: formFields.name,
-        contact: formFields.phone
-      },
-      theme: {
-        color: "#F37254"
-      }
-    };
+    try {
+      const order = await createOrder();
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-    rzp.on('payment.failed', async function (response) {
-      alert("Payment Failed! Reason: " + response.error.description);
-  
-      const payLoad = {
-        userId,
-        name: addressInfo.name,
-        phone: addressInfo.phone,
-        address: addressInfo.address,
-        amount: totalAmount,
-        paymentId: order.id,
-        products: cartItems,
-        paymentStatus: 'Failed' 
-      }
-  
-      try {
-        await axios.post('https://jai-sweet-backend.onrender.com/api/order/create', payLoad, { headers: { Authorization: `Bearer ${token}` } });
-      } catch (error) {
-        console.error(error);
-      }
-    });
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.id,
+        name: 'Jai Sweets',
+        description: 'Order Payment',
+        handler: async function (response) {
+          alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+          await saveOrder(response.razorpay_payment_id, 'Completed', order.id);
+          clearCart();
+          navigate('/');
+        },
+        prefill: { name, contact: phone },
+        theme: {
+          color: "#F37254"
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+      rzp.on('payment.failed', async function (response) {
+        alert("Payment Failed! Reason: " + response.error.description);
+        await saveOrder(null, 'Failed', order.id)
+      });
+    }
+    catch (error) {
+      console.error(error);
+    }
   }
 
+  const saveOrder = async (paymentId, status, razorpayOrderId) => {
+    const orderPayload = {
+      userId,
+      name: formFields.name,
+      phone: formFields.phone,
+      address: formFields.address,
+      amount: totalAmount,
+      paymentId: razorpayOrderId,
+      products: Object.values(cartItems).map(item => ({
+        id: item.id || item._id,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        category: item.category,
+        subcategory: item.subcategory
+      })),
+      paymentStatus: status
+    };
+
+    try {
+      await axios.post(
+        'https://jai-sweet-backend.onrender.com/api/order/create',
+        orderPayload,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (error) {
+      console.error('Error saving order:', error);
+    }
+  };
+
   useEffect(() => {
-    if(!token){
+    if (!token) {
       navigate('/cart')
     }
-    else if(getTotalAmountCart() === 0){
+    else if (getTotalAmountCart() === 0) {
       navigate('/cart')
     }
   }, [token])
