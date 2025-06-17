@@ -29,7 +29,7 @@
 - **UI Framework:** Tailwind CSS 
 - **State Management:** Context API 
 - **Routing:** React Router DOM
-- **API Integration:** Axios or Fetch
+- **API Integration:** Axios and Fetch
 - **Other:** 
   - Sweet Alert for notifications
   - React Icons
