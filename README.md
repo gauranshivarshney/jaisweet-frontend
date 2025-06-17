@@ -6,7 +6,7 @@
 
 ## 🔗 Live Demo
 
-[👉 View JaiSweet Frontend ](https://jaisweet-frontend.vercel.app/)
+[👉 View Link ](https://jaisweet-frontend.vercel.app/)
 
 ---
 
