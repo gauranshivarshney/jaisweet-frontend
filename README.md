@@ -26,6 +26,7 @@
 ## 🚀 Tech Stack
 
 - **Frontend Framework:** React.js
+- **Backend:** Node.js, Express
 - **UI Framework:** Tailwind CSS 
 - **State Management:** Context API 
 - **Routing:** React Router DOM
