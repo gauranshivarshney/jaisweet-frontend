@@ -41,7 +41,7 @@ export default function Cart() {
             return (
               <div key={value.id || key}>
                 <div className='cart-items-title cart-items-item'>
-                  <img src={`${url}${value.image}`} alt={value.name} className='cart-item-image' />
+                  
                   <p>{value.name}</p>
                   <p>{value.category}</p>
                   <p>{value.subcategory}</p>

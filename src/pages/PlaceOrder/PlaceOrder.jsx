@@ -57,7 +57,7 @@ export default function PlaceOrder() {
         description: 'Order Payment',
         handler: async function (response) {
           alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-          await saveOrder(response.razorpay_payment_id, 'Completed', order.id);
+          await saveOrder(response.razorpay_payment_id, 'Completed', response.razorpay_order_id);
           clearCart();
           navigate('/');
         },
@@ -66,6 +66,8 @@ export default function PlaceOrder() {
           color: "#F37254"
         }
       };
+      console.log(import.meta.env.VITE_RAZORPAY_KEY_ID)
+
 
       const rzp = new window.Razorpay(options);
       rzp.open();
@@ -93,8 +95,11 @@ export default function PlaceOrder() {
         name: item.name,
         quantity: item.quantity,
         price: item.price,
+        weight: item.weight,
         category: item.category,
-        subcategory: item.subcategory
+        subcategory: item.subcategory,
+        image: item.image,
+        type: item.type
       })),
       paymentStatus: status
     };
