@@ -66,8 +66,6 @@ export default function PlaceOrder() {
           color: "#F37254"
         }
       };
-      console.log(import.meta.env.VITE_RAZORPAY_KEY_ID)
-
 
       const rzp = new window.Razorpay(options);
       rzp.open();
