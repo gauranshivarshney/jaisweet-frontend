@@ -87,7 +87,7 @@ export default function PlaceOrder() {
       phone: formFields.phone,
       address: formFields.address,
       amount: totalAmount,
-      paymentId: razorpayOrderId,
+      paymentId: paymentId,
       products: Object.values(cartItems).map(item => ({
         id: item.id || item._id,
         name: item.name,
